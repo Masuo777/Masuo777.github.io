@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="referrer" content="never" />
+  
+  
+  <meta name="description" content="thymleaf使用笔记1、引入在使用时要在html中加上这句话
+1xmlns:th=&amp;quot;http://www.thymeleaf.org&amp;quot;
+
+用例
+123456789101112&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html lang=&amp;quot;en&amp;quot; xmlns:th=&amp;quot;http://www.thymeleaf.org&amp;quot;&amp;gt;&amp;lt;head&amp;gt;    &amp;lt;meta charset=&amp;quot;UTF-8&amp;quot;&amp;gt;    &amp;lt;title&amp;gt;Title&amp;lt;/title&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;body&amp;gt;&amp;lt;h1&amp;gt;test&amp;lt;/h1&amp;gt;&amp;lt;!--&amp;lt;h1--&amp;gt;&amp;lt;a th:href=&amp;quot;@&amp;#123;login.html&amp;#125;&amp;quot;&amp;gt;login&amp;lt;/a&amp;gt;&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;
+
+2、thymleaf对HTML的规范==thymleaf对html规范有很高的要求，如果html没能很好的加载可能导致程序不能正常运行==
+降低thymleaf对HTML的规范：
+1234567spring:    thymeleaf:      mode: LEGACYHTML5      #关闭缓存      cache: false      servlet:        content-type: text/html" />
+  
+
+  
+  
+  <meta name="google-site-verification" content="NCXVSqxqB-os803-VFMtIEd1SUNJVOIjctCfNYUwD0w" />
+  <meta name="baidu-site-verification" content="Nzwx7HuplM" />
+  
+  <meta name="msvalidate.01" content="9E9EA92F7E5327E1FE8A5196D5253664" />
+  
+  
+  
+  <title>thyme leaf | masuo777的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="thymleaf使用笔记1、引入在使用时要在html中加上这句话 1xmlns:th&#x3D;&quot;http:&#x2F;&#x2F;www.thymeleaf.org&quot;  用例 123456789101112&lt;!DOCTYPE html&gt;&lt;html lang&#x3D;&quot;en&quot; xmlns:th&#x3D;&quot;http:&#x2F;&#x2F;www.thymeleaf.org&quot;&gt;&amp;l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="thyme leaf">
+<meta property="og:url" content="https://masuo777.github.io/2021/07/01/thymleaf%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="masuo777的博客">
+<meta property="og:description" content="thymleaf使用笔记1、引入在使用时要在html中加上这句话 1xmlns:th&#x3D;&quot;http:&#x2F;&#x2F;www.thymeleaf.org&quot;  用例 123456789101112&lt;!DOCTYPE html&gt;&lt;html lang&#x3D;&quot;en&quot; xmlns:th&#x3D;&quot;http:&#x2F;&#x2F;www.thymeleaf.org&quot;&gt;&amp;l">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701225824.png">
+<meta property="og:image" content="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701225854.png">
+<meta property="article:published_time" content="2021-07-01T14:52:14.879Z">
+<meta property="article:modified_time" content="2021-07-04T03:29:17.798Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701225824.png">
+  
+    <link rel="alternative" href="/atom.xml" title="masuo777的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="http://7u2hdm.com1.z0.glb.clouddn.com/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src='//push.zhanzhang.baidu.com/push.js'></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="masuo777的博客" rel="home">masuo777的博客</a>
+      </h1>
+      
+        <script type="text/javascript" src="http://api.hitokoto.us/rand?encode=js&charset=utf-8"></script>
+        <h2 class="site-description"><script>hitokoto();</script></h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">MDS</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/todo">ToDo</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/images">images</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/about">ME</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/works">作品集</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/tools">工具集</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a target="_blank" rel="noopener" href="https://github.com/Masuo777">my github</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-thymleaf使用笔记" class="post-thymleaf使用笔记 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      thyme leaf
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="/2021/07/01/thymleaf%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/#comments" class="leave-reply">评论</a>
+            
+            <a href="javascript:void(0);" data-url="https://masuo777.github.io/2021/07/01/thymleaf%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" data-id="ckqtn7l00000hi0tj90i510gf" class="leave-reply bdsharebuttonbox" data-cmd="more">分享</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h1 id="thymleaf使用笔记"><a href="#thymleaf使用笔记" class="headerlink" title="thymleaf使用笔记"></a>thymleaf使用笔记</h1><h3 id="1、引入"><a href="#1、引入" class="headerlink" title="1、引入"></a>1、引入</h3><p>在使用时要在html中加上这句话</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xmlns:th=&quot;http://www.thymeleaf.org&quot;</span><br></pre></td></tr></table></figure>
+
+<p>用例</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span> <span class="attr">xmlns:th</span>=<span class="string">&quot;http://www.thymeleaf.org&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>test<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--&lt;h1--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">th:href</span>=<span class="string">&quot;@&#123;login.html&#125;&quot;</span>&gt;</span>login<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2、thymleaf对HTML的规范"><a href="#2、thymleaf对HTML的规范" class="headerlink" title="2、thymleaf对HTML的规范"></a>2、thymleaf对HTML的规范</h3><p>==thymleaf对html规范有很高的要求，如果html没能很好的加载可能导致程序不能正常运行==</p>
+<p>降低thymleaf对HTML的规范：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">    <span class="attr">thymeleaf:</span></span><br><span class="line">      <span class="attr">mode:</span> <span class="string">LEGACYHTML5</span></span><br><span class="line">      <span class="comment">#关闭缓存</span></span><br><span class="line">      <span class="attr">cache:</span> <span class="literal">false</span></span><br><span class="line">      <span class="attr">servlet:</span></span><br><span class="line">        <span class="attr">content-type:</span> <span class="string">text/html</span></span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+
+<h3 id="3、a标签-amp-页面跳转"><a href="#3、a标签-amp-页面跳转" class="headerlink" title="3、a标签&amp;页面跳转"></a>3、a标签&amp;页面跳转</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">th:href</span>=<span class="string">&quot;@&#123;/login&#125;&quot;</span>&gt;</span>login<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这样一般情况是访问不到网页的，需要重新发送请求，将网页当作新的请求进行访问，所以我们需要将a标签改成这样，</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span> <span class="attr">xmlns:th</span>=<span class="string">&quot;http://www.thymeleaf.org&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--重新发送请求--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/login&quot;</span>&gt;</span>login<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>test<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>1<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">&quot;ev-logo&quot;</span> <span class="attr">th:src</span>=<span class="string">&quot;@&#123;img/logo5.png&#125;&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>test<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>2<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">&quot;ev-logo&quot;</span> <span class="attr">th:src</span>=<span class="string">&quot;@&#123;logo.png&#125;&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这样点击a标签时就会发送”/login“的新请求，如此我们就可以实现页面跳转。</p>
+<p>在有一种情况我们需要用到第一种写法，在访问index页面的时侯，如果只是单独使用第二种<u>href=”/login”</u>写法的话，会报错，具体原因不知道为啥</p>
+<p>出错信息：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">An error happened during template <span class="title">parsing</span> <span class="params">(template: <span class="string">&quot;class path resource [templates/login.html]&quot;</span>)</span></span></span><br><span class="line"><span class="function">org.thymeleaf.exceptions.TemplateInputException: An error happened during template <span class="title">parsing</span> <span class="params">(template: <span class="string">&quot;class path resource [templates/login.html]&quot;</span>)</span></span></span><br><span class="line"><span class="function">	at </span></span><br><span class="line"><span class="function">Caused by: org.thymeleaf.exceptions.TemplateProcessingException: Could not parse as expression: &quot;/index&quot; <span class="params">(template: <span class="string">&quot;login&quot;</span> - line <span class="number">18</span>, col <span class="number">12</span>)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>更正：</p>
+<h3 id="4、访问静态资源路径"><a href="#4、访问静态资源路径" class="headerlink" title="4、访问静态资源路径"></a>4、访问静态资源路径</h3><p>项目结构，我们来访问img下的logo5.png</p>
+<p><img src="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701225824.png" alt="image-20201203143140369"></p>
+<h4 id="1）、直接访问"><a href="#1）、直接访问" class="headerlink" title="1）、直接访问"></a>1）、直接访问</h4><p>当我们以网页的形式访问该资源时，可以以 <a target="_blank" rel="noopener" href="http://localhost:8080/img/logo5.png">http://localhost:8080/img/logo5.png</a>  直接进行访问，访问形式为端口号+static下的资源路径（static是不需要的，因为系统在自动配置的时候默认是在classpath下面进行寻找，而classpath便是{“main/java/”,”main/resources/”}这些路径，在配置的时候他会默认加上static的路径，如果在加static就会显得多余，而且会访问不到。）</p>
+<p><img src="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701225854.png" alt="image-20201203145012048"></p>
+<h4 id="2）、网页访问"><a href="#2）、网页访问" class="headerlink" title="2）、网页访问"></a>2）、网页访问</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span> <span class="attr">xmlns:th</span>=<span class="string">&quot;http://www.thymeleaf.org&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>test<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>test<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>test<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--&lt;h1--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/login&quot;</span>&gt;</span>login<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>test<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>1<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 访问时只需要写出static下的路径即可--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">&quot;ev-logo&quot;</span> <span class="attr">th:src</span>=<span class="string">&quot;@&#123;img/logo5.png&#125;&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>test<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>2<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">&quot;ev-logo&quot;</span> <span class="attr">th:src</span>=<span class="string">&quot;@&#123;logo.png&#125;&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="5、Ambiguous-handler-methods-mapped-for-‘xxx’"><a href="#5、Ambiguous-handler-methods-mapped-for-‘xxx’" class="headerlink" title="5、Ambiguous handler methods mapped for ‘xxx’"></a>5、Ambiguous handler methods mapped for ‘xxx’</h3><p>翻译：为“xxx”映射的处理程序方法不明确，</p>
+<p>映射不明确说明有多个相同的映射，即同一个映射有多个可映射点，会使系统不知道该选择哪个映射点，所以我们需要更改映射名称</p>
+<h3 id="6、从后台获取数据（Model的使用）"><a href="#6、从后台获取数据（Model的使用）" class="headerlink" title="6、从后台获取数据（Model的使用）"></a>6、从后台获取数据（Model的使用）</h3><h4 id="1）、类型对象（String，int类型）"><a href="#1）、类型对象（String，int类型）" class="headerlink" title="1）、类型对象（String，int类型）"></a>1）、类型对象（String，int类型）</h4><p>后台数据</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 获取所有通知的名称</span></span><br><span class="line"><span class="comment"> * list:</span></span><br><span class="line"><span class="comment"> 		第一条通知</span></span><br><span class="line"><span class="comment">		第二条通知</span></span><br><span class="line"><span class="comment">		第三条通知</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> ：</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RequestMapping(&#123;&quot;/getNotice&quot;,&quot;/test&quot;&#125;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getAllNotice</span><span class="params">(Model model)</span></span>&#123;</span><br><span class="line">    List&lt;String&gt; noticeName = noticeMapper.getAllNotice();</span><br><span class="line">    model.addAttribute(<span class="string">&quot;noticename&quot;</span>,noticeName);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;test&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>前端获取</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">table</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span> <span class="attr">th:each</span>=<span class="string">&quot;notice:$&#123;noticename&#125;&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;notice&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2）、实体类对象（Entity）"><a href="#2）、实体类对象（Entity）" class="headerlink" title="2）、实体类对象（Entity）"></a>2）、实体类对象（Entity）</h4><p>后台获取数据，首先我们要将对象数据进行封装，然后加入model，随请求一起发送。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * entity实体类从数据库获取数据后将数据传向前端页面，</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> model：通过model返回要传的值</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> ：返回前端</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RequestMapping(&#123;&quot;/getNotice&quot;,&quot;/test&quot;&#125;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getAllNoticeEntityTest</span><span class="params">(Model model)</span></span>&#123;</span><br><span class="line">    <span class="comment">//声明一个list对象用于存储Entity对象</span></span><br><span class="line">    List&lt;Notice&gt; lists = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    lists.add(<span class="keyword">new</span> Notice(<span class="number">1</span>,<span class="string">&quot;notice&quot;</span>,<span class="string">&quot;neirong&quot;</span>));</span><br><span class="line">    lists.add(<span class="keyword">new</span> Notice(<span class="number">2</span>,<span class="string">&quot;notice&quot;</span>,<span class="string">&quot;neirong&quot;</span>));</span><br><span class="line">    lists.add(<span class="keyword">new</span> Notice(<span class="number">3</span>,<span class="string">&quot;notice&quot;</span>,<span class="string">&quot;neirong&quot;</span>));</span><br><span class="line">    lists.add(<span class="keyword">new</span> Notice(<span class="number">4</span>,<span class="string">&quot;notice&quot;</span>,<span class="string">&quot;neirong&quot;</span>));</span><br><span class="line">    <span class="comment">//将list加入model传入前台</span></span><br><span class="line">    model.addAttribute(<span class="string">&quot;noticename&quot;</span>,lists);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;test&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>前端获取</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--获取后台传入的noticename，并将他赋给notice对象，然后通过--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span> <span class="attr">th:each</span>=<span class="string">&quot;notice:$&#123;noticename&#125;&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;notice.id&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;notice.n_name&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;notice.n_content&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="7、Error-resolving-template-template-might-not-exist-…"><a href="#7、Error-resolving-template-template-might-not-exist-…" class="headerlink" title="7、Error resolving template [***], template might not exist …"></a>7、Error resolving template [***], template might not exist …</h3><p>有时候会遇到一个500的错误，具体错误类型如下：==Error resolving template [***], template might not exist or might not be accessible by any of the configured Template Resolvers==</p>
+<p>错误原因：</p>
+<p>1）缓存加载失败，</p>
+<p>2）访问地址写错（500）</p>
+<p>3）模板不存在（404）</p>
+<p>4）模板存在问题（控制台会输出“<strong>cause by…</strong>”的错误信息）</p>
+<p>解决方法：</p>
+<p>1）重启，在启动，重新访问，（最后如果还没有发现错误在重启）</p>
+<p>2）检查访问路径（其次检查路径有没有写错）</p>
+<p>3）检查控制台，检查页面（首先检查是不是页面问题）</p>
+<h3 id="8、使用them-leaf的心得体会"><a href="#8、使用them-leaf的心得体会" class="headerlink" title="8、使用them leaf的心得体会"></a>8、使用them leaf的心得体会</h3><p>本人大概是在使用了一个月左右的them leaf模板后开始写下自己的一些新的体会，</p>
+<p>首先，作为学习者，我们遇到问题最先需要做的就是找到问题所在，一般不是逻辑问题的话，我们都可以在报错信息中找到，尤其是出现500一类的页面加载的问题，保错信息会带我们精确的找到问题所在之处，一般都是这样的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Caused by: org.thymeleaf.exceptions.TemplateProcessingException: Could not parse as expression: <span class="string">&quot;/index&quot;</span> (template: <span class="string">&quot;login&quot;</span> - line <span class="number">18</span>, col <span class="number">12</span>)</span><br></pre></td></tr></table></figure>
+
+<p>前面提示有是因为them leaf的摸一个模板加载时遇到预期之外的问题，在第18行第12位上。</p>
+<p>其次，在加载资源时，有本地资源可以直接加载本地资源，如果确定自己的加载路径没有问题，但还是加载不出来资源的话，可以尝试重启IDE。</p>
+<p>在之后，因为我使用them leaf的时间还不是很长，所以能提供的意见较少，学习新东西还是需要自己不断的去探索，去摸索，不要害怕出错。</p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2021/07/01/thymleaf%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+    <time datetime="2021-07-01T14:52:14.879Z" class="entry-date">
+        2021-07-01
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2021/07/04/index/" rel="prev"><span class="meta-nav">←</span> Test</a></span>
+    
+    
+        <span class="nav-next"><a href="/2021/07/01/Spring%20Boot%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="next">(no title) <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+<section id="comments">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="post-thymleaf使用笔记" data-title="thyme leaf" data-url="https://masuo777.github.io/2021/07/01/thymleaf%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:'ms'};
+    (function() {
+	  var ds = document.createElement('script');
+	  ds.type = 'text/javascript';ds.async = true;
+	  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	  ds.charset = 'UTF-8';
+	  (document.getElementsByTagName('head')[0]
+	   || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+  <!-- 多说公共JS代码 end -->
+</section>
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside class="widget">
+    <h3 class="widget-title">CONTACT ME</h3>
+    <div class="widget-content">
+      <p>邮箱：masuo0.0@foxmail.com</p>
+      <p>QQ：2919029885</p>
+      <a target="_blank" rel="noopener" href="https://www.cnblogs.com/msdog/">博客园</a>
+      
+      <img src="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701223301.jpg" height="250px"/>
+      
+    </div>
+</aside>
+  
+    <aside class="widget">
+    <h3 class="widget-title">赞助我</h3>
+    <div class="widget-content">
+      <img src='/css/images/alipay.png' style='width:100%;' />
+    </div>
+</aside>
+  
+    <aside class="widget">
+    <h3 class="widget-title">公众号</h3>
+    <div class="widget-content">
+      <p>暂时没有，待我代码行数100000，我可能才有这个资格吧。</p>
+      <p></p>
+    </div>
+</aside>
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2021 John Doe; All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

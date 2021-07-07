@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="referrer" content="never" />
+  
+  
+  <meta name="description" content="本手册用于总结个人开发过程与遇到的问题。
+一、环境准备首先确定IDE工具，推荐使用Android Studio，安装之前需要先准备Java环境，在这里就不展示了。
+1.1、Android Studio的安装进入Android Studio的官网，选择最新的稳定版（不固定），或者选择上一个稳定版。选择适合自己系统的版本下载。在选择
+个人安装包：
+链接：https://pan.baidu.com/s/1ukrfEEEg90jUwlmjQ2Ultw 提取码：as21 
+官方安装参照：https://developer.android.google.cn/studio/install
+个人安装参照：https://blog.csdn.net/qq_37138756/article/details/100513554" />
+  
+
+  
+  
+  <meta name="google-site-verification" content="NCXVSqxqB-os803-VFMtIEd1SUNJVOIjctCfNYUwD0w" />
+  <meta name="baidu-site-verification" content="Nzwx7HuplM" />
+  
+  <meta name="msvalidate.01" content="9E9EA92F7E5327E1FE8A5196D5253664" />
+  
+  
+  
+  <title>Android | masuo777的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本手册用于总结个人开发过程与遇到的问题。 一、环境准备首先确定IDE工具，推荐使用Android Studio，安装之前需要先准备Java环境，在这里就不展示了。 1.1、Android Studio的安装进入Android Studio的官网，选择最新的稳定版（不固定），或者选择上一个稳定版。选择适合自己系统的版本下载。在选择 个人安装包： 链接：https:&#x2F;&#x2F;pan.baidu.com&#x2F;s&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android">
+<meta property="og:url" content="https://masuo777.github.io/2021/07/01/Android%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C/index.html">
+<meta property="og:site_name" content="masuo777的博客">
+<meta property="og:description" content="本手册用于总结个人开发过程与遇到的问题。 一、环境准备首先确定IDE工具，推荐使用Android Studio，安装之前需要先准备Java环境，在这里就不展示了。 1.1、Android Studio的安装进入Android Studio的官网，选择最新的稳定版（不固定），或者选择上一个稳定版。选择适合自己系统的版本下载。在选择 个人安装包： 链接：https:&#x2F;&#x2F;pan.baidu.com&#x2F;s&#x2F;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-07-01T14:52:14.786Z">
+<meta property="article:modified_time" content="2021-07-04T03:22:58.373Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="masuo777的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="http://7u2hdm.com1.z0.glb.clouddn.com/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src='//push.zhanzhang.baidu.com/push.js'></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="masuo777的博客" rel="home">masuo777的博客</a>
+      </h1>
+      
+        <script type="text/javascript" src="http://api.hitokoto.us/rand?encode=js&charset=utf-8"></script>
+        <h2 class="site-description"><script>hitokoto();</script></h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">MDS</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/todo">ToDo</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/images">images</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/about">ME</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/works">作品集</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/tools">工具集</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a target="_blank" rel="noopener" href="https://github.com/Masuo777">my github</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-Android开发手册" class="post-Android开发手册 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      Android
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="/2021/07/01/Android%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C/#comments" class="leave-reply">评论</a>
+            
+            <a href="javascript:void(0);" data-url="https://masuo777.github.io/2021/07/01/Android%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C/" data-id="ckqtn7kz80001i0tj8rw0g41h" class="leave-reply bdsharebuttonbox" data-cmd="more">分享</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>本手册用于总结个人开发过程与遇到的问题。</p>
+<h1 id="一、环境准备"><a href="#一、环境准备" class="headerlink" title="一、环境准备"></a>一、环境准备</h1><p>首先确定IDE工具，推荐使用Android Studio，安装之前需要先准备Java环境，在这里就不展示了。</p>
+<h2 id="1-1、Android-Studio的安装"><a href="#1-1、Android-Studio的安装" class="headerlink" title="1.1、Android Studio的安装"></a>1.1、Android Studio的安装</h2><p>进入Android Studio的官网，选择最新的稳定版（不固定），或者选择上一个稳定版。选择适合自己系统的版本下载。在选择</p>
+<p>个人安装包：</p>
+<p>链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1ukrfEEEg90jUwlmjQ2Ultw">https://pan.baidu.com/s/1ukrfEEEg90jUwlmjQ2Ultw</a> 提取码：as21 </p>
+<p>官方安装参照：<a target="_blank" rel="noopener" href="https://developer.android.google.cn/studio/install">https://developer.android.google.cn/studio/install</a></p>
+<p>个人安装参照：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37138756/article/details/100513554">https://blog.csdn.net/qq_37138756/article/details/100513554</a></p>
+<span id="more"></span>
+
+
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2021/07/01/Android%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C/">
+    <time datetime="2021-07-01T14:52:14.786Z" class="entry-date">
+        2021-07-01
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2021/07/01/Interview/" rel="prev"><span class="meta-nav">←</span> Interview</a></span>
+    
+    
+        <span class="nav-next"><a href="/2021/06/29/pic/" rel="next">(no title) <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+<section id="comments">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="post-Android开发手册" data-title="Android" data-url="https://masuo777.github.io/2021/07/01/Android%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:'ms'};
+    (function() {
+	  var ds = document.createElement('script');
+	  ds.type = 'text/javascript';ds.async = true;
+	  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	  ds.charset = 'UTF-8';
+	  (document.getElementsByTagName('head')[0]
+	   || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+  <!-- 多说公共JS代码 end -->
+</section>
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside class="widget">
+    <h3 class="widget-title">CONTACT ME</h3>
+    <div class="widget-content">
+      <p>邮箱：masuo0.0@foxmail.com</p>
+      <p>QQ：2919029885</p>
+      <a target="_blank" rel="noopener" href="https://www.cnblogs.com/msdog/">博客园</a>
+      
+      <img src="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701223301.jpg" height="250px"/>
+      
+    </div>
+</aside>
+  
+    <aside class="widget">
+    <h3 class="widget-title">赞助我</h3>
+    <div class="widget-content">
+      <img src='/css/images/alipay.png' style='width:100%;' />
+    </div>
+</aside>
+  
+    <aside class="widget">
+    <h3 class="widget-title">公众号</h3>
+    <div class="widget-content">
+      <p>暂时没有，待我代码行数100000，我可能才有这个资格吧。</p>
+      <p></p>
+    </div>
+</aside>
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2021 John Doe; All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

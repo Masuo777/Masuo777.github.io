@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="referrer" content="never" />
+  
+  
+  <meta name="description" content="title:MySQLMysql深入学习笔记一、CRUD1、insert在使用insert语句时，一般我们会用
+1insert into table ()values()
+
+进阶用法：将表明用‘table’括起来
+1insert into &amp;#x27;table&amp;#x27; ()values()
+
+这样当我们表名（table name）较复杂时也不会出现因表名而引起的错误
+2、delete3、update
+更新语句时要用对象传参
+
+4、select1）Date/DateTime在MySQL中存在三种不同时的时间类型，默认为DateTime，他会存入“YYYY-MM-DD hh-mm-ss”格式的时间。当我们想截取年月/月日时，我们可以使用MySQL自带的时间函数：date_format(时间列名,’时间格式’)，如：date_format(N_time,’%m-%d’)
+1select N_time,date_format(N_time,&amp;#x27;%m-%d&amp;#x27;) AS time from notice
+
+结果如图：
+
+2）limit今天在开发过程中遇到了需要使用limit关键字的问题，由于对limit的使用不是很多，所以写下来，供以后参考。
+首先limit支持一个或两个参数的使用，(limitCount/offset,limitCount)
+当使用一个参数时，会返回相应的最大行数，如" />
+  
+
+  
+  
+  <meta name="google-site-verification" content="NCXVSqxqB-os803-VFMtIEd1SUNJVOIjctCfNYUwD0w" />
+  <meta name="baidu-site-verification" content="Nzwx7HuplM" />
+  
+  <meta name="msvalidate.01" content="9E9EA92F7E5327E1FE8A5196D5253664" />
+  
+  
+  
+  <title>masuo777的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="title:MySQLMysql深入学习笔记一、CRUD1、insert在使用insert语句时，一般我们会用 1insert into table ()values()  进阶用法：将表明用‘table’括起来 1insert into &amp;#x27;table&amp;#x27; ()values()  这样当我们表名（table name）较复杂时也不会出现因表名而引起的错误 2、delete3、u">
+<meta property="og:type" content="article">
+<meta property="og:title" content="masuo777的博客">
+<meta property="og:url" content="https://masuo777.github.io/2021/07/01/Mysql%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="masuo777的博客">
+<meta property="og:description" content="title:MySQLMysql深入学习笔记一、CRUD1、insert在使用insert语句时，一般我们会用 1insert into table ()values()  进阶用法：将表明用‘table’括起来 1insert into &amp;#x27;table&amp;#x27; ()values()  这样当我们表名（table name）较复杂时也不会出现因表名而引起的错误 2、delete3、u">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701230325.png">
+<meta property="article:published_time" content="2021-07-01T14:52:14.866Z">
+<meta property="article:modified_time" content="2021-07-04T03:27:02.217Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701230325.png">
+  
+    <link rel="alternative" href="/atom.xml" title="masuo777的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="http://7u2hdm.com1.z0.glb.clouddn.com/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src='//push.zhanzhang.baidu.com/push.js'></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="masuo777的博客" rel="home">masuo777的博客</a>
+      </h1>
+      
+        <script type="text/javascript" src="http://api.hitokoto.us/rand?encode=js&charset=utf-8"></script>
+        <h2 class="site-description"><script>hitokoto();</script></h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">MDS</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/todo">ToDo</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/images">images</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/about">ME</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/works">作品集</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/tools">工具集</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a target="_blank" rel="noopener" href="https://github.com/Masuo777">my github</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-Mysql深入学习" class="post-Mysql深入学习 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        <div class="comments-link">
+            
+            <a href="/2021/07/01/Mysql%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/#comments" class="leave-reply">评论</a>
+            
+            <a href="javascript:void(0);" data-url="https://masuo777.github.io/2021/07/01/Mysql%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/" data-id="ckqtn7kzh0005i0tj3yqi3by1" class="leave-reply bdsharebuttonbox" data-cmd="more">分享</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <hr>
+<h2 id="title-MySQL"><a href="#title-MySQL" class="headerlink" title="title:MySQL"></a>title:MySQL</h2><h1 id="Mysql深入学习笔记"><a href="#Mysql深入学习笔记" class="headerlink" title="Mysql深入学习笔记"></a>Mysql深入学习笔记</h1><h2 id="一、CRUD"><a href="#一、CRUD" class="headerlink" title="一、CRUD"></a>一、CRUD</h2><h4 id="1、insert"><a href="#1、insert" class="headerlink" title="1、insert"></a>1、insert</h4><p>在使用insert语句时，一般我们会用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into table ()values()</span><br></pre></td></tr></table></figure>
+
+<p>进阶用法：将表明用<strong>‘table’</strong>括起来</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into &#x27;table&#x27; ()values()</span><br></pre></td></tr></table></figure>
+
+<p>这样当我们<strong>表名</strong>（table name）较复杂时也不会出现因<strong>表名</strong>而引起的错误</p>
+<h4 id="2、delete"><a href="#2、delete" class="headerlink" title="2、delete"></a>2、delete</h4><h4 id="3、update"><a href="#3、update" class="headerlink" title="3、update"></a>3、update</h4><ul>
+<li>更新语句时要用对象传参</li>
+</ul>
+<h4 id="4、select"><a href="#4、select" class="headerlink" title="4、select"></a>4、select</h4><h5 id="1）Date-DateTime"><a href="#1）Date-DateTime" class="headerlink" title="1）Date/DateTime"></a>1）Date/DateTime</h5><p>在MySQL中存在三种不同时的时间类型，默认为DateTime，他会存入“YYYY-MM-DD hh-mm-ss”格式的时间。当我们想截取年月/月日时，我们可以使用MySQL自带的时间函数：date_format(时间列名,’时间格式’)，如：date_format(N_time,’%m-%d’)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select N_time,date_format(N_time,&#x27;%m-%d&#x27;) AS time from notice</span><br></pre></td></tr></table></figure>
+
+<p>结果如图：</p>
+<p><img src="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701230325.png" alt="image-20210303122059287"></p>
+<h5 id="2）limit"><a href="#2）limit" class="headerlink" title="2）limit"></a>2）limit</h5><p>今天在开发过程中遇到了需要使用<strong>limit</strong>关键字的问题，由于对limit的使用不是很多，所以写下来，供以后参考。</p>
+<p>首先<strong>limit</strong>支持一个或两个参数的使用，(limitCount/offset,limitCount)</p>
+<p>当使用一个参数时，会返回相应的最大行数，如</p>
+<span id="more"></span>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from table_name limit 10;</span><br></pre></td></tr></table></figure>
+
+<p>此时数据库会返回最多十条数据（前提是数据库中的数据多于十条），如果数据库中的数据量小于十条则返回所有行数。</p>
+<p>当使用两个参数时，，会返回从第一个参数开始的第二个参数数据量的数据，如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from table_name limit 0,10;</span><br></pre></td></tr></table></figure>
+
+<p>此时会返回从0开始的10条数据。</p>
+<h2 id="二、索引的使用"><a href="#二、索引的使用" class="headerlink" title="二、索引的使用"></a>二、索引的使用</h2>
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2021/07/01/Mysql%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/">
+    <time datetime="2021-07-01T14:52:14.866Z" class="entry-date">
+        2021-07-01
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2021/07/01/Spring%20boot%E9%94%99%E8%AF%AF%E9%9B%86%E9%94%A6/" rel="prev"><span class="meta-nav">←</span> (no title)</a></span>
+    
+    
+        <span class="nav-next"><a href="/2021/07/01/konwledge/" rel="next">(no title) <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+<section id="comments">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="post-Mysql深入学习" data-title="" data-url="https://masuo777.github.io/2021/07/01/Mysql%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:'ms'};
+    (function() {
+	  var ds = document.createElement('script');
+	  ds.type = 'text/javascript';ds.async = true;
+	  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	  ds.charset = 'UTF-8';
+	  (document.getElementsByTagName('head')[0]
+	   || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+  <!-- 多说公共JS代码 end -->
+</section>
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside class="widget">
+    <h3 class="widget-title">CONTACT ME</h3>
+    <div class="widget-content">
+      <p>邮箱：masuo0.0@foxmail.com</p>
+      <p>QQ：2919029885</p>
+      <a target="_blank" rel="noopener" href="https://www.cnblogs.com/msdog/">博客园</a>
+      
+      <img src="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701223301.jpg" height="250px"/>
+      
+    </div>
+</aside>
+  
+    <aside class="widget">
+    <h3 class="widget-title">赞助我</h3>
+    <div class="widget-content">
+      <img src='/css/images/alipay.png' style='width:100%;' />
+    </div>
+</aside>
+  
+    <aside class="widget">
+    <h3 class="widget-title">公众号</h3>
+    <div class="widget-content">
+      <p>暂时没有，待我代码行数100000，我可能才有这个资格吧。</p>
+      <p></p>
+    </div>
+</aside>
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2021 John Doe; All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

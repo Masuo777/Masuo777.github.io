@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="referrer" content="never" />
+  
+  
+  <meta name="description" content="Make a good choice everyday，mark a new knowledge every interview.
+面试经验1.Spring*Spring boot与Spring MVC的区别参考：https://zhuanlan.zhihu.com/p/63117304
+1）什么是spring？要知道它们之间的区别我们需要先了解什么是spring。
+​    spring是一个开源容器框架，支持web层，业务层，持久层，Dao层的组件，可以配置bean，能管理bean与bean之间的关系。核心为控制反转IOC和面向切面编程AOP。
+在这里我们需要了解两个知识点：对，就是你陌生的IOC和AOP。（参考：https://zhuanlan.zhihu.com/p/144241957）
+首先，==IOC是Inversion of control 的简写（shorthand），翻译过来就是控制反转，它是一种思想==，不是一种技术，他描述的是Java开发领域对象的创建以及管理的问题。例，类A依赖于类B，
+传统思想：我们需要在类A中new一个类B，我们才能实现类A。
+IoC思想：不使用new创建对象，而是将实例化之后的类B放入容器中，在我们需要调用时再去从容器中调用。
+这样很明显的能看出来，大大降低了对象之间的耦合度。
+有了IoC之后，资源管理变得就相对简单。
+为什么叫控制反转？
+控制：创建对象的权力
+反转：控制权交给外部环境（IoC，spring）
+这里提一句DI，DI是Dependency Injection的简写，是IoC的最合理实现方式。
+其次，AOP是Aspect oriented programming 的简写，翻译过来就是面向切面的编程，是面向对象编程（OOP,Object Oriented Programming）的一种延申.==OOP的核心就是封装，继承，多态。==OOP可以解决大多数代码重用的问题，比如pig，dog，cat可以提取一个animal的父类来减少代码的重复，但是她不能解决单一类的代码重用问题，比如animal父类中有两个方法run（）和eat（），这两个方法中的代码有大量重复时，OOP不能解决此时的代码重用问题。而这些重用的代码被称为横切逻辑代码。" />
+  
+
+  
+  
+  <meta name="google-site-verification" content="NCXVSqxqB-os803-VFMtIEd1SUNJVOIjctCfNYUwD0w" />
+  <meta name="baidu-site-verification" content="Nzwx7HuplM" />
+  
+  <meta name="msvalidate.01" content="9E9EA92F7E5327E1FE8A5196D5253664" />
+  
+  
+  
+  <title>Interview | masuo777的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Make a good choice everyday，mark a new knowledge every interview. 面试经验1.Spring*Spring boot与Spring MVC的区别参考：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;63117304 1）什么是spring？要知道它们之间的区别我们需要先了解什么是spring。 ​    spring是一个开">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Interview">
+<meta property="og:url" content="https://masuo777.github.io/2021/07/01/Interview/index.html">
+<meta property="og:site_name" content="masuo777的博客">
+<meta property="og:description" content="Make a good choice everyday，mark a new knowledge every interview. 面试经验1.Spring*Spring boot与Spring MVC的区别参考：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;63117304 1）什么是spring？要知道它们之间的区别我们需要先了解什么是spring。 ​    spring是一个开">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701224749.png">
+<meta property="og:image" content="https://pic4.zhimg.com/v2-bebb6883701f140121a7566c50145b4f_r.jpg">
+<meta property="og:image" content="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701224948.png">
+<meta property="og:image" content="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701224959.png">
+<meta property="og:image" content="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701225011.png">
+<meta property="og:image" content="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701225023.jpg">
+<meta property="og:image" content="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701225036.png">
+<meta property="og:image" content="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701225045.png">
+<meta property="og:image" content="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701225054.png">
+<meta property="og:image" content="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701225102.png">
+<meta property="og:image" content="https://pic3.zhimg.com/v2-58b68626b1a17c4eaa05f72d084e4d7e_r.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/v2-fb67a1effb77eea9a53a074610df97ce_r.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/v2-ab19f6bc309461c30dbb815fedd36ede_r.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/v2-dbe765021095631ee7434be6e32d89f7_r.jpg">
+<meta property="og:image" content="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701230521.gif">
+<meta property="og:image" content="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701230527.gif">
+<meta property="og:image" content="https://pic4.zhimg.com/v2-f28bd27feefd5acae2d6a2542bc61a87_r.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/v2-b4fc5eb956f77b68f53b3d39958289bd_r.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/v2-647f404560f5f24818b7bbf2b584bb17_r.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/v2-ba75342bf820741e91ec7992b7bd63a9_r.jpg">
+<meta property="article:published_time" content="2021-07-01T14:52:14.852Z">
+<meta property="article:modified_time" content="2021-07-04T03:27:05.277Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701224749.png">
+  
+    <link rel="alternative" href="/atom.xml" title="masuo777的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="http://7u2hdm.com1.z0.glb.clouddn.com/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src='//push.zhanzhang.baidu.com/push.js'></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="masuo777的博客" rel="home">masuo777的博客</a>
+      </h1>
+      
+        <script type="text/javascript" src="http://api.hitokoto.us/rand?encode=js&charset=utf-8"></script>
+        <h2 class="site-description"><script>hitokoto();</script></h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">MDS</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/todo">ToDo</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/images">images</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/about">ME</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/works">作品集</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/tools">工具集</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a target="_blank" rel="noopener" href="https://github.com/Masuo777">my github</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-Interview" class="post-Interview post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      Interview
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="/2021/07/01/Interview/#comments" class="leave-reply">评论</a>
+            
+            <a href="javascript:void(0);" data-url="https://masuo777.github.io/2021/07/01/Interview/" data-id="ckqtn7kzp0007i0tjfu3obmnb" class="leave-reply bdsharebuttonbox" data-cmd="more">分享</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>Make a good choice everyday，mark a new knowledge every interview.</p>
+<h1 id="面试经验"><a href="#面试经验" class="headerlink" title="面试经验"></a>面试经验</h1><h2 id="1-Spring"><a href="#1-Spring" class="headerlink" title="1.Spring"></a>1.Spring</h2><h3 id="Spring-boot与Spring-MVC的区别"><a href="#Spring-boot与Spring-MVC的区别" class="headerlink" title="*Spring boot与Spring MVC的区别"></a>*Spring boot与Spring MVC的区别</h3><p>参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/63117304">https://zhuanlan.zhihu.com/p/63117304</a></p>
+<h4 id="1）什么是spring？"><a href="#1）什么是spring？" class="headerlink" title="1）什么是spring？"></a>1）什么是spring？</h4><p>要知道它们之间的区别我们需要先了解什么是spring。</p>
+<p>​    spring是一个开源容器<strong>框架</strong>，支持web层，业务层，持久层，Dao层的组件，可以配置bean，能管理bean与bean之间的关系。核心为<strong>控制反转IOC</strong>和<strong>面向切面编程AOP</strong>。</p>
+<p>在这里我们需要了解两个知识点：对，就是你陌生的IOC和AOP。（参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/144241957%EF%BC%89">https://zhuanlan.zhihu.com/p/144241957）</a></p>
+<h5 id="首先，-IOC是Inversion-of-control-的简写（shorthand），翻译过来就是控制反转，它是一种思想-，不是一种技术，他描述的是Java开发领域对象的创建以及管理的问题。"><a href="#首先，-IOC是Inversion-of-control-的简写（shorthand），翻译过来就是控制反转，它是一种思想-，不是一种技术，他描述的是Java开发领域对象的创建以及管理的问题。" class="headerlink" title="首先，==IOC是Inversion of control 的简写（shorthand），翻译过来就是控制反转，它是一种思想==，不是一种技术，他描述的是Java开发领域对象的创建以及管理的问题。"></a>首先，==IOC是Inversion of control 的简写（shorthand），翻译过来就是控制反转，它是一种思想==，不是一种技术，他描述的是Java开发领域对象的创建以及管理的问题。</h5><p>例，类A依赖于类B，</p>
+<p><strong>传统思想</strong>：我们需要在类A中new一个类B，我们才能实现类A。</p>
+<p><strong>IoC思想</strong>：不使用new创建对象，而是将实例化之后的类B放入容器中，在我们需要调用时再去从容器中调用。</p>
+<p>这样很明显的能看出来，大大降低了对象之间的耦合度。</p>
+<p>有了IoC之后，资源管理变得就相对简单。</p>
+<p><strong>为什么叫控制反转？</strong></p>
+<p><strong>控制</strong>：创建对象的权力</p>
+<p><strong>反转</strong>：控制权交给外部环境（IoC，spring）</p>
+<p>这里提一句DI，DI是Dependency Injection的简写，是IoC的最合理实现方式。</p>
+<h5 id="其次，AOP是Aspect-oriented-programming-的简写，翻译过来就是面向切面的编程，是面向对象编程（OOP-Object-Oriented-Programming）的一种延申"><a href="#其次，AOP是Aspect-oriented-programming-的简写，翻译过来就是面向切面的编程，是面向对象编程（OOP-Object-Oriented-Programming）的一种延申" class="headerlink" title="其次，AOP是Aspect oriented programming 的简写，翻译过来就是面向切面的编程，是面向对象编程（OOP,Object Oriented Programming）的一种延申."></a>其次，AOP是Aspect oriented programming 的简写，翻译过来就是面向切面的编程，是面向对象编程（OOP,Object Oriented Programming）的一种延申.</h5><h5 id="OOP的核心就是封装，继承，多态。"><a href="#OOP的核心就是封装，继承，多态。" class="headerlink" title="==OOP的核心就是封装，继承，多态。=="></a>==OOP的核心就是封装，继承，多态。==</h5><p>OOP可以解决大多数代码重用的问题，比如pig，dog，cat可以提取一个animal的父类来减少代码的重复，但是她不能解决单一类的代码重用问题，比如animal父类中有两个方法run（）和eat（），这两个方法中的代码有大量重复时，OOP不能解决此时的代码重用问题。而这些重用的代码被称为横切逻辑代码。</p>
+<p><img src="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701224749.png" alt="image-20210402153710185"></p>
+<span id="more"></span>
+
+<p>这些横切逻辑代码存在的问题：</p>
+<ul>
+<li>代码重复</li>
+<li>混在其他代码（业务代码）之中，不便维护。</li>
+</ul>
+<h5 id="AOP如何解决横切逻辑代码的问题？"><a href="#AOP如何解决横切逻辑代码的问题？" class="headerlink" title="AOP如何解决横切逻辑代码的问题？"></a>AOP如何解决横切逻辑代码的问题？</h5><p>将代码分为业务模块，逻辑模块两个模块。</p>
+<p>这样在我们写代码时，只需要调用重复的代码即可，不需要重复写这些代码了。</p>
+<h5 id="为什么叫面对切面编程？"><a href="#为什么叫面对切面编程？" class="headerlink" title="为什么叫面对切面编程？"></a>为什么叫面对切面编程？</h5><p><strong>切</strong> ：指的是横切逻辑，原有业务逻辑代码不动，只能操作横切逻辑代码，所以面向横切逻辑</p>
+<p><strong>面</strong> ：横切逻辑代码往往要影响的是很多个方法，每个方法如同一个点，多个点构成一个面。这里有一个面的概念。</p>
+<p>至此我们了解了spring的实现。</p>
+<h4 id="2）什么是springMVC？"><a href="#2）什么是springMVC？" class="headerlink" title="2）什么是springMVC？"></a>2）什么是springMVC？</h4><p>spring mvc属于springframwork的后续产品。</p>
+<p>springMVC是一种web层MVC框架，用于代替老一套servlet（处理|响应请求，获取表单参数，表单验证等）。</p>
+<p>SpringMVC是一个MVC的开源框架，SpringMVC=structs2+spring。</p>
+<h4 id="3）什么是spring-boot？"><a href="#3）什么是spring-boot？" class="headerlink" title="3）什么是spring boot？"></a>3）什么是spring boot？</h4><p>spring boot是一个微服务框架，延续了spring的核心IoC和AOP，简化了应用的开发和部署。</p>
+<p>因为spring配置需要配置大量的ｘｍｌ文件，所以开发人员根据使用习惯将这些ｘｍｌ文件进行自动配置。</p>
+<h5 id="spring-boot的特性："><a href="#spring-boot的特性：" class="headerlink" title="spring boot的特性："></a>spring boot的特性：</h5><ul>
+<li>快速创建web应用。</li>
+<li>嵌入tomcat，</li>
+<li>提供大量的懒人工具starter</li>
+<li>自动配置</li>
+</ul>
+<p>==所以springMVC和spring boot的区别就是spring boot实现了自动配置，降低了项目搭建的复杂度。==</p>
+<p>==Spring MVC 是基于Spring的一个 MVC 框架 ；==</p>
+<p>==Spring Boot 是基于Spring4的条件注册的一套快速开发整合包。==</p>
+<h3 id="spring-boot的核心与实现"><a href="#spring-boot的核心与实现" class="headerlink" title="*spring boot的核心与实现"></a>*spring boot的核心与实现</h3><p>上面说到，spring boot的核心就是自动配置，那么spring boot是如何实现自动配置的呢？</p>
+<p>简单来说，==main方法中的springbootApplication注解调用EnableAutoConfigation，EnableAutoConfigation注解调用AutoConfigationImportSelector注解,这个注解可以完成对需要自动配置的方法进行自动配置。==</p>
+<p>因为spring boot只需要一个main即可启动，得益于他的SpringBootApplication注解，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.esprots;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"><span class="comment">//这里只需要一个注解即可启动服务，所以核心注解之一必是SpringBootApplication</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyApplication</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(MyApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>下一步，我们查看SpringBootApplication，这里一共有如下几个注释</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.springframework.boot.autoconfigure;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@SpringBootConfiguration</span><span class="comment">//这个是对spring boot进行配置</span></span><br><span class="line"><span class="meta">@EnableAutoConfiguration</span><span class="comment">//这个是启动自动配置</span></span><br><span class="line"><span class="meta">@ComponentScan(excludeFilters = &#123; @Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),</span></span><br><span class="line"><span class="meta">		@Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class) &#125;)</span></span><br></pre></td></tr></table></figure>
+
+<p>从这里我们可以看出，这是一个自动配置的接口，我们沿着autoconfigurtion，在这里我么可以将SpringBootApplication看作是Configuration，EnableAutoConfiguration，ComponentScan的集合。</p>
+<p>分别来看一下各个注解的作用</p>
+<ul>
+<li>EnableAutoConfiguration：启用spring boot的自动配置，这个是实现自动配置的关键注解</li>
+<li>Configuration：允许用户进行自行配置，即允许我们修改自动配置的值</li>
+<li>ComponentScan：扫描被<code>@Component</code> (<code>@Service</code>,<code>@Controller</code>)注解的 bean，注解默认会扫描启动类所在的包下所有的类 ，可以自定义不扫描某些 bean。</li>
+</ul>
+<p>下一步，我们查看EnableAutoConfiguration，这里一共有如下几个注释</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Target(ElementType.TYPE)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Documented</span><br><span class="line">@Inherited</span><br><span class="line">@AutoConfigurationPackage//自动配置包</span><br><span class="line">@Import(AutoConfigurationImportSelector.class)</span><br></pre></td></tr></table></figure>
+
+<p>@AutoConfigurationPackage：自动配置包，完成了如下功能</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@Import(AutoConfigurationPackages.Registrar.class)</span><br><span class="line">public @interface AutoConfigurationPackage </span><br></pre></td></tr></table></figure>
+
+<p>我们都知道import是导入包使用的，所以这里的注释意思即是导入自动配置包下的class</p>
+<p><code>EnableAutoConfiguration</code> 只是一个简单地注解，自动装配核心功能的实现实际是通过 <code>AutoConfigurationImportSelector</code>类。</p>
+<p>我们现在重点分析下<code>AutoConfigurationImportSelector</code> 类到底做了什么？</p>
+<p><code>AutoConfigurationImportSelector</code> 的源码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> AutoConfigurationEntry EMPTY_ENTRY = <span class="keyword">new</span> AutoConfigurationEntry();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String[] NO_IMPORTS = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Log logger = LogFactory.getLog(AutoConfigurationImportSelector.class);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String PROPERTY_NAME_AUTOCONFIGURE_EXCLUDE = <span class="string">&quot;spring.autoconfigure.exclude&quot;</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> ConfigurableListableBeanFactory beanFactory;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> Environment environment;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> ClassLoader beanClassLoader;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> ResourceLoader resourceLoader;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> ConfigurationClassFilter configurationClassFilter;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AutoConfigurationImportSelector</span> <span class="keyword">implements</span> <span class="title">DeferredImportSelector</span>, <span class="title">BeanClassLoaderAware</span>, <span class="title">ResourceLoaderAware</span>, <span class="title">BeanFactoryAware</span>, <span class="title">EnvironmentAware</span>, <span class="title">Ordered</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">public</span> String[] selectImports(AnnotationMetadata annotationMetadata) &#123;</span><br><span class="line">		<span class="keyword">if</span> (!isEnabled(annotationMetadata)) &#123;</span><br><span class="line">            <span class="comment">//判断是否启用自动配置</span></span><br><span class="line">			<span class="keyword">return</span> NO_IMPORTS;</span><br><span class="line">		&#125;</span><br><span class="line">        <span class="comment">//获取所需装配的bean</span></span><br><span class="line">		AutoConfigurationEntry autoConfigurationEntry = getAutoConfigurationEntry(annotationMetadata);</span><br><span class="line">		<span class="keyword">return</span> StringUtils.toStringArray(autoConfigurationEntry.getConfigurations());</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到，在这个类中没有新的注解，并且它定义了很多变量，而这些变量没有被new关键字实例化，再根据IoC的原理，我们可以猜想一下，这些实例应该是放在IoC容器中。</p>
+<p>再根据她下面这些方法，autoConfigurationEntry.getConfigurations()</p>
+<h2 id="2-设计模式"><a href="#2-设计模式" class="headerlink" title="2.设计模式"></a>2.设计模式</h2><h3 id="什么是设计模式？"><a href="#什么是设计模式？" class="headerlink" title="什么是设计模式？"></a>什么是设计模式？</h3><p>==设计模式是一套被反复使用的，多人只晓的，经过分类的代码设计经验总结。==</p>
+<p>设计模式有三大类：创建型，结构型，行为型</p>
+<p><strong>创建型</strong>：工厂模式，抽象工厂模式，单例模式，建造者模式，原型模式</p>
+<p><strong>结构型</strong>：适配器模式，过滤器模式，装饰模式，享元模式，代理模式，外观模式，组合模式，桥接模式</p>
+<p><strong>行为型</strong>：责任链模式，命令模式，中介者模式，观察者模式，状态模式，策略模式，模板模式，空对象模式，备忘录模式，迭代器模式，解释器模式，访问者模式</p>
+<h3 id="常见的设计模式有哪些？"><a href="#常见的设计模式有哪些？" class="headerlink" title="常见的设计模式有哪些？"></a>常见的设计模式有哪些？</h3><p><img src="https://pic4.zhimg.com/v2-bebb6883701f140121a7566c50145b4f_r.jpg" alt="preview"></p>
+<h2 id="3-MySQL"><a href="#3-MySQL" class="headerlink" title="3.MySQL"></a>3.MySQL</h2><h3 id="百万级数据优化查询"><a href="#百万级数据优化查询" class="headerlink" title="百万级数据优化查询"></a>百万级数据优化查询</h3><p>我知道的有分页，缓存，分表。具体实现按如下所示：</p>
+<ul>
+<li><h4 id="limit"><a href="#limit" class="headerlink" title="limit"></a>limit</h4></li>
+</ul>
+<p>首先我们很容易想到使用limit来限制查询，但是一个limit不是万能的，他能解决百万级数据量（耗时不到1s,不算快，也不算慢），但千万级数据量的时候就会达到10s以上。</p>
+<ul>
+<li><h4 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h4></li>
+</ul>
+<p>说到查询优化，我们首先想到的就是建立索引。</p>
+<ul>
+<li><h4 id="避免全表扫描，"><a href="#避免全表扫描，" class="headerlink" title="避免全表扫描，"></a>避免全表扫描，</h4></li>
+</ul>
+<p>如索引值为null</p>
+<ul>
+<li><h4 id="数据存储结构设计"><a href="#数据存储结构设计" class="headerlink" title="数据存储结构设计"></a>数据存储结构设计</h4><ul>
+<li><strong>分区</strong>：根据一定的规则，将表分为更小更容易管理的部分，是一种水平划分，</li>
+<li><strong>分表</strong>：有横向分表和纵向分表</li>
+<li><strong>分库</strong>：按照时间或空间/地点来对分库</li>
+</ul>
+</li>
+</ul>
+<h3 id="什么时候使用索引？什么不能使用索引？"><a href="#什么时候使用索引？什么不能使用索引？" class="headerlink" title="什么时候使用索引？什么不能使用索引？"></a>什么时候使用索引？什么不能使用索引？</h3><h3 id="MySQL常见底层引擎"><a href="#MySQL常见底层引擎" class="headerlink" title="MySQL常见底层引擎:"></a>MySQL常见底层引擎:</h3><p>InnoDB和MyISAM</p>
+<h3 id="InnoDB和Myisam的区别"><a href="#InnoDB和Myisam的区别" class="headerlink" title="InnoDB和Myisam的区别"></a>InnoDB和Myisam的区别</h3><p>参考：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/20596402/answer/211492971">https://www.zhihu.com/question/20596402/answer/211492971</a></p>
+<ul>
+<li>InnoDB支持事务，MyISAM不支持事务</li>
+<li>InnoDB 支持外键，MyISAM不支持外键</li>
+<li>InnoDB不保存表的行数，MyISAM会保存表的行数</li>
+<li>InnoDB最小粒度锁是行锁，而MyISAM 是表锁，</li>
+<li>InnoDB是聚集索引，MyISAM 是非聚集索引，聚簇索引的文件放在主键索引的叶子节点上，因此InnoDB必须有主键，通过主键索引效率高，所以InnoDB索引效率高。</li>
+</ul>
+<h3 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h3><p>四个特性：</p>
+<ul>
+<li><strong>原子性</strong>：指事务操作为最小执行单元，不可分割</li>
+<li><strong>一致性</strong>：数据的一致性</li>
+<li><strong>隔离性</strong>：值多个对象访问同一个数据时的数据保护，只允许一个对象访问数据</li>
+<li><strong>持久性</strong>：采用WAL（预写日志）的方式来保证事务的原子性和持久性。WAL 是指在更新数据前，先写日志，在完成更新操作。这样，在系统崩溃时，如果数据还没有完成更新操作，即可通过读取日志来完成，如果还没更新日志，则数据仍然保持一致性。</li>
+</ul>
+<h3 id="使用事务会产生的问题"><a href="#使用事务会产生的问题" class="headerlink" title="使用事务会产生的问题"></a>使用事务会产生的问题</h3><p>脏读，幻读</p>
+<h3 id="表与表之间的关联关系有哪几种？"><a href="#表与表之间的关联关系有哪几种？" class="headerlink" title="表与表之间的关联关系有哪几种？"></a>表与表之间的关联关系有哪几种？</h3><p>一对一，一对多，多对多。</p>
+<h3 id="外键的使用"><a href="#外键的使用" class="headerlink" title="外键的使用"></a>外键的使用</h3><p><strong>外键的作用</strong>：保持数据的一致性，完整性，主要目的是控制存储在外键表中的数据，使两张表形成关联，外键只能引用外表中列的值。</p>
+<h3 id="链接数据库的几种方式"><a href="#链接数据库的几种方式" class="headerlink" title="链接数据库的几种方式"></a>链接数据库的几种方式</h3><ul>
+<li>ODBC（Open DataBase Connectivity）</li>
+<li>DAO（）</li>
+</ul>
+<h2 id="4-进程与线程"><a href="#4-进程与线程" class="headerlink" title="4.进程与线程"></a>4.进程与线程</h2><h3 id="4-1进程（process）："><a href="#4-1进程（process）：" class="headerlink" title="4.1进程（process）："></a>4.1进程（process）：</h3><p>狭义：是正在运行的一个程序</p>
+<p>广义：是一个具有一定独立功能的程序关于某个数据集合的一次运行活动，是操作系统进行资源分配与调度的基本单位</p>
+<p>进程的概念主要有两点：</p>
+<ul>
+<li>进程是一个实体</li>
+<li>进程是一个<strong>执行中</strong>的程序，只有当操作系统赋予进程生命时，才成为一个活动的实体，称之为进程</li>
+</ul>
+<h3 id="4-2线程（thread）："><a href="#4-2线程（thread）：" class="headerlink" title="4.2线程（thread）："></a>4.2线程（thread）：</h3><p>线程是进程的一个执行单元，每个线程有自己的线程栈，自己的寄存器环境，自己的线程本地存储。</p>
+<p>线程是操作系统可进行运算调度的最小运行单元。</p>
+<p>一个进程至少有一个线程</p>
+<p>多线程运行调度由线程调度器管理，不一定根据线程创建顺序执行</p>
+<h4 id="4-2-1线程的创建方法"><a href="#4-2-1线程的创建方法" class="headerlink" title="4.2.1线程的创建方法"></a>4.2.1线程的创建方法</h4><h5 id="继承Thread"><a href="#继承Thread" class="headerlink" title="继承Thread"></a>继承Thread</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class MyThread extends Thread&#123;</span><br><span class="line">	@override</span><br><span class="line">	public void run()&#123;</span><br><span class="line">		//重写方法体</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="实现Runnable接口"><a href="#实现Runnable接口" class="headerlink" title="实现Runnable接口"></a>实现Runnable接口</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;runnable thread&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span></span>&#123;</span><br><span class="line">    MyThread mt = <span class="keyword">new</span> MyThread()</span><br><span class="line">    Thread thread = <span class="keyword">new</span> Thread(mt);</span><br><span class="line">    thread.start();</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h5 id="实现Callable接口"><a href="#实现Callable接口" class="headerlink" title="实现Callable接口"></a>实现Callable接口</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CallableThread</span> <span class="keyword">implements</span> <span class="title">Callable</span>&lt;<span class="title">String</span>&gt;</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Callable&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>在操作系统中以进程为单位分配资源，如虚拟空间</p>
+<p>生命周期，线程的生命周期共6种状态：<strong>New（初始化状态）、Runnable（可运行/运行状态）、Blocked（阻塞状态）、Waiting（等待状态）、Timed_Waiting（有时间限制的等待）、Terminated（终止状态）</strong></p>
+<p><img src="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701224948.png" alt="image-20210414225118178"></p>
+<h3 id="4-3主线程与子线程："><a href="#4-3主线程与子线程：" class="headerlink" title="4.3主线程与子线程："></a>4.3主线程与子线程：</h3><p>JVM在启动时，会创建一个主线程，该线程负责执行main方法，Java中线程是不孤立的，</p>
+<h3 id="4-4线程之间运行的状态"><a href="#4-4线程之间运行的状态" class="headerlink" title="4.4线程之间运行的状态"></a>4.4线程之间运行的状态</h3><p><img src="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701224959.png" alt="image-20210512105021210"></p>
+<p><img src="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701225011.png" alt="image-20210512105040500"></p>
+<h4 id="4-4-1串行："><a href="#4-4-1串行：" class="headerlink" title="4.4.1串行："></a>4.4.1串行：</h4><p>​    依次运行</p>
+<h4 id="4-4-2并行："><a href="#4-4-2并行：" class="headerlink" title="4.4.2并行："></a>4.4.2并行：</h4><p>​    同时运行</p>
+<h4 id="4-4-3并发："><a href="#4-4-3并发：" class="headerlink" title="4.4.3并发："></a>4.4.3并发：</h4><p>​    同时发生，但不能同时运行，在较小的时间内串行。</p>
+<p>（同步/异步）参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/67452727">https://zhuanlan.zhihu.com/p/67452727</a></p>
+<h3 id="4-7异步："><a href="#4-7异步：" class="headerlink" title="4.7异步："></a>4.7异步：</h3><p>可发生请求，有等待时间，在等待时可进行下一任务</p>
+<h3 id="4-8同步："><a href="#4-8同步：" class="headerlink" title="4.8同步："></a>4.8同步：</h3><p>可发生请求，有等待，在等待时不可进行下一任务，必须等当前任务完成才能进行下一任务。</p>
+<h2 id="5-数据结构"><a href="#5-数据结构" class="headerlink" title="5.数据结构"></a>5.数据结构</h2><h3 id="5-1什么是数据结构？"><a href="#5-1什么是数据结构？" class="headerlink" title="5.1什么是数据结构？"></a>5.1什么是数据结构？</h3><ul>
+<li>数据结构是指数据在计算机中的存储方式，是相互之间存在一种或多种关系的数据元素的集合</li>
+<li>数据结构是计算机组织，存储数据的方式</li>
+</ul>
+<h3 id="5-2经典的数据结构有哪些？及其使用"><a href="#5-2经典的数据结构有哪些？及其使用" class="headerlink" title="5.2经典的数据结构有哪些？及其使用"></a>5.2经典的数据结构有哪些？及其使用</h3><p>参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/257915734">https://zhuanlan.zhihu.com/p/257915734</a></p>
+<p><img src="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701225023.jpg" alt="preview"></p>
+<p>常用的数据结构有<strong>数组，栈，队列，链表，树，图，堆，散列表</strong>，</p>
+<ul>
+<li><p><strong>数组</strong>（Array），数据的集合，长度固定</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//声明:类型 数组名[];这里不需要给出数组长度，否则编译出错</span></span><br><span class="line"><span class="keyword">int</span> array[]  ;</span><br><span class="line"><span class="comment">//初始化：静态初始化/动态初始化</span></span><br><span class="line"><span class="comment">//静态初始化:一旦完成初始化则数组长度固定</span></span><br><span class="line"><span class="comment">//数组类型 数组名[] = &#123;数据1，数据2，。。。。&#125;</span></span><br><span class="line"><span class="keyword">int</span> array[] = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line"><span class="comment">//动态初始化</span></span><br><span class="line"><span class="comment">//方法1</span></span><br><span class="line"><span class="keyword">int</span> array1[];</span><br><span class="line">array1 = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>];</span><br><span class="line"><span class="comment">//赋值</span></span><br><span class="line">array1 = array;</span><br><span class="line"><span class="comment">//方法2</span></span><br><span class="line"><span class="keyword">int</span>[] array2 = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>];</span><br><span class="line"><span class="comment">//赋值</span></span><br><span class="line">array2 = array1;</span><br><span class="line">array2[<span class="number">5</span>] = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 注意事项</span></span><br><span class="line"><span class="comment">  * 1.定义数组：无论使用什么方法定义数组，都不能指定数组长度，</span></span><br><span class="line"><span class="comment">  * 2.数组下标只能为int byte short 不能为long</span></span><br><span class="line"><span class="comment">  * 3.获取数组长度 数组.lenth,没有括号</span></span><br><span class="line"><span class="comment">  */</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>优点：数组在存储在内存中，数组的数据连续存放，数组长度固定，知道数组开头位置和偏移量就可以很快找到数据的位置，数组就像一本书，指定页码找很快，无需每页都看一遍。根据内容找势必很慢。</p>
+<ul>
+<li>  按照索引查询速度很快</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>    *   按照索引遍历数组也很快
+
+- 缺点：
+
+    - 数组的大小在创建后就固定了，不可变无法扩容
+    - 数组只能存储一种数据类型
+    - 添加数据删除数据很费时间，因为要移动其他元素
+</code></pre>
+<ul>
+<li><p><strong>链表</strong>:继承了AbstractSequentialList,</p>
+<p>  底层：由于链表的链式存储结构，所以链表可以实现内存非连续存储</p>
+<p>  <img src="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701225036.png" alt="image-20210509131617876"></p>
+<p>  实现了List接口，实现了Deque接口，实现了Clone able接口，实现了Serializable接口</p>
+<p>  <img src="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701225045.png" alt="image-20210509112919102"></p>
+<ul>
+<li><p>定义：链表是一种递归的数据结构，它或者为空，或者指向一个节点（node）的引用，该节点还有一个元素和指向另一条链表的引用</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkedList</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">transient</span> Node&lt;E&gt; first;</span><br><span class="line">    <span class="keyword">transient</span> Node&lt;E&gt; last;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">    E item;</span><br><span class="line">    Node&lt;E&gt; next;</span><br><span class="line">    Node&lt;E&gt; prev;</span><br><span class="line"></span><br><span class="line">    Node(Node&lt;E&gt; prev, E element, Node&lt;E&gt; next) &#123;</span><br><span class="line">			<span class="keyword">this</span>.item = element;</span><br><span class="line">			<span class="keyword">this</span>.next = next;</span><br><span class="line">			<span class="keyword">this</span>.prev = prev;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  由于不必按照顺序的方式存储，所以链表在插入删除时可以达到O（1）的时间复杂度（只需只想下一个空内存的地址即可，不需要像数组那样一个一个移动数据），除此之外，链表还可以动态的增加数组长度。</p>
+<p>  优点：</p>
+<ul>
+<li>不需要初始化容量</li>
+<li>可以添加任意元素</li>
+<li>插入删除的时候只需要更新引用</li>
+</ul>
+<p>  缺点：</p>
+<ul>
+<li>含有大量的引用，耗费内存</li>
+<li>查找元素需要遍历整个链表，耗时</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>栈</strong>:先进后出</p>
+<p>  <img src="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701225054.png" alt="image-20210509133359637"></p>
+</li>
+<li><p><strong>队列</strong>:先进先出，后进后出</p>
+<p>  <img src="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701225102.png" alt="image-20210509141407698"></p>
+</li>
+<li><p><strong>树</strong>:树是一种典型的非线性结构，由n个有限节点组成的一个有层次的关系的集合</p>
+<p>  <img src="https://pic3.zhimg.com/v2-58b68626b1a17c4eaa05f72d084e4d7e_r.jpg" alt="preview"></p>
+<p>  特点：</p>
+<ul>
+<li><p>每个节点都有有限个子节点或无子节点，每个节点有0或n个子节点</p>
+</li>
+<li><p>没有子节点的节点为根节点</p>
+</li>
+<li><p>每一个非根节点有且只有一个父节点</p>
+</li>
+<li><p>除了根节点，每个子节点可以分为多个不相交的子树</p>
+<p>  <img src="https://pic3.zhimg.com/v2-fb67a1effb77eea9a53a074610df97ce_r.jpg" alt="preview"></p>
+<p>  树的种类有很多种：无序树，有序树，二叉树，B树，二叉树包括满二叉树，完全二叉树，平衡二叉树（AVL），二叉搜索树（二叉搜索树，BST），霍夫曼树，红黑树</p>
+<ul>
+<li><p>无序数：树的任意节点的子节点没有顺序关系</p>
+</li>
+<li><p>有序树：树的任意节点的子节点有顺序关系</p>
+</li>
+<li><p>二叉树：树的任意节点至多包含两个节点，二叉树包括</p>
+</li>
+<li><p><strong>满二叉树</strong>：每一层的节点都达到了最大值的二叉树，有两种表现形式，是完全二叉树的一种特殊形式</p>
+<ul>
+<li><p>第一种，像下图这样（每一层都是满的），满足每一层的节点数都达到了最大值 2。</p>
+<p>  <img src="https://pic3.zhimg.com/v2-ab19f6bc309461c30dbb815fedd36ede_r.jpg" alt="preview"></p>
+</li>
+<li><p>第二种，像下图这样（每一层虽然不满），但每一层的节点数仍然达到了最大值 2。</p>
+<p>  <img src="https://pic4.zhimg.com/v2-dbe765021095631ee7434be6e32d89f7_r.jpg" alt="preview"></p>
+</li>
+</ul>
+</li>
+<li><p><strong>完全二叉树</strong>：除最后一层，即叶子节点层其余层都是满的，即如有缺失数据，则只能从最下面一层的最右面往左面缺失。</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">设二叉树的深度为h，除第 h 层外，其它各层 (1～h-1) 的结点数都达到最大个数，第 h 层所有的结点都连续集中在最左边，这就是完全二叉树。</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>平衡二叉树</strong>：又称AVL树，由前苏联数学家 Adelse-Velskil 和 Landis提出，它是一颗空树，或左右两子树的高度差不超过1，并且左右两子树都是一颗平衡二叉树，查找/删除/插入等操作在最坏及平均的情况下<strong>时间复杂度</strong>都是O（logn），增加和删除元素的操作需要一次或多次<strong>树旋转</strong>来实现新的平衡。</p>
+<ul>
+<li><p><strong>平衡二叉树是基于二分法的策略提高数据的查找速度的二叉树的数据结构</strong>；</p>
+</li>
+<li><p>参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/56066942">https://zhuanlan.zhihu.com/p/56066942</a></p>
+</li>
+<li><p>平衡因子：左子树与右子树的高度差（BF，Balance Factor），<br>  $$<br>  左子树高度-右子树高度<br>  $$<br>  平衡因子取值为1，0，-1，分别代表左子树高，左右子树相等，右子树高。</p>
+</li>
+<li><p><strong>AVL树插入时的失衡与调整</strong></p>
+</li>
+<li><p>最小失衡子树：在新插入的节点向上查找，以第一个平衡因子的绝对值超过1的节点为根的子树为最小平衡子树</p>
+</li>
+<li><p><strong>左旋</strong>流程：</p>
+<p>  1）节点的右孩子代替最小平衡子树的根节点，</p>
+<p>  2）节点的右孩子的左子树成为根节点的右子树，</p>
+<p>  3）节点本身变为右孩子的左子树</p>
+<p>  <img src="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701230521.gif" alt="img"></p>
+</li>
+<li><p><strong>右旋</strong>流程：</p>
+<p>  1）节点的左孩子代表此节点 ，</p>
+<p>  2）节点的左孩子的右子树变为节点的左子树 ，</p>
+<p>  3）将此节点作为左孩子节点的右子树。</p>
+<p>  <img src="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701230527.gif" alt="img"></p>
+</li>
+<li><p><strong>AVL树删除时的失衡与调整</strong>：删除操作需要将出现的所有非平衡点修正，删除可分为四种情况</p>
+<p>  1）删除叶子节点</p>
+<p>  2）删除只有左子树的根节点</p>
+<p>  3）删除只有右子树的根节点</p>
+<p>  4）删除的节点既有左子树又有右子树</p>
+<p>  删除操作步骤：</p>
+</li>
+</ul>
+</li>
+<li><p>二叉搜索树：</p>
+<ul>
+<li>参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/29867652">https://zhuanlan.zhihu.com/p/29867652</a></li>
+</ul>
+</li>
+<li><p>霍夫曼树：</p>
+<ul>
+<li>参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/127021911">https://zhuanlan.zhihu.com/p/127021911</a></li>
+</ul>
+</li>
+<li><p><strong>红黑树</strong>：平衡二叉树最常见的就是红黑树，节点是红色或者黑色，通过颜色的约束来维持二叉树的平衡</p>
+<ul>
+<li><p>定义</p>
+<p>  1）每个节点都只能是红色或者黑色</p>
+<p>  2）根节点是黑色</p>
+<p>  3）每个叶节点（NIL 节点，空节点）是黑色的。</p>
+<p>  4）如果一个节点是红色的，则它两个子节点都是黑色的。也就是说在一条路径上不能出现相邻的两个红色节点。</p>
+<p>  5）从任一节点到其每个叶子的所有路径都包含相同数目的黑色节点。</p>
+<p>  <img src="https://pic4.zhimg.com/v2-f28bd27feefd5acae2d6a2542bc61a87_r.jpg" alt="preview"></p>
+</li>
+</ul>
+</li>
+<li><p><strong>B树</strong>（B-tree）：一种对读写操作进行优化的自平衡二叉查找树，能够保证数据有序，<strong>拥有多于两个的子树</strong>。数据库的索引技术就用到了B树。</p>
+<p>  <img src="https://pic2.zhimg.com/v2-b4fc5eb956f77b68f53b3d39958289bd_r.jpg" alt="preview"></p>
+<p>  参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/27700617">https://zhuanlan.zhihu.com/p/27700617</a></p>
+<p>  与其他树不同的地方在于B树拥有多于两个的子树</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>堆</strong>:堆可以被看作一棵树的数组对象，总是一颗完全二叉树</p>
+</li>
+<li><p><strong>图</strong>:图是一种复杂的非线性结构，由顶点的有穷非空集合和顶点之间边的集合组成，通常表示为：G（V，E），其中，G 表示一个图，V 是图 G 中顶点的集合，E 是图 G 中边的集合。</p>
+<p>  <img src="https://pic4.zhimg.com/v2-647f404560f5f24818b7bbf2b584bb17_r.jpg" alt="preview"></p>
+<ul>
+<li><p>在线性结构中，数据元素之间满足唯一的线性关系，每个数据元素（除第一个和最后一个外）均有唯一的“前驱”和“后继”；</p>
+<p>  在树形结构中，数据元素之间有着明显的层次关系，并且每个数据元素只与上一层中的一个元素（父节点）及下一层的多个元素（子节点）相关；</p>
+<p>  而在图形结构中，节点之间的关系是任意的，图中任意两个数据元素之间都有可能相关。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>散列表（哈希表）</strong>:是根据关键码值（key-value）及逆行数据访问的数据结结构。</p>
+<ul>
+<li><p>实现：取数组长度为模，将key值对其取模运算，得到的就是它的存储位置下标，时间复杂度为O（1）</p>
+<p>  这里有一个公式可以快速算出对2的n次方取模值</p>
+<p>  <strong>任意数对2的N次方取模时，等同于其和2的N次方-1作位于运算。</strong><br>  $$<br>  k %% 2^n = k &amp; (2^n - 1)<br>  $$<br>  <img src="https://pic2.zhimg.com/v2-ba75342bf820741e91ec7992b7bd63a9_r.jpg" alt="preview"></p>
+</li>
+</ul>
+<p>  问题：会产生哈希碰撞</p>
+<p>  解决方法：散列法，拉链法</p>
+</li>
+<li><p>散列法分<strong>开放寻址</strong>和<strong>再散列法</strong></p>
+</li>
+<li><p>拉链发，java中的散列表即使用这个是实现</p>
+</li>
+<li><p><strong>负载因子</strong>：哈希表中现有元素与哈希表的长度的比值，阈值为0.75<br>  $$<br>  负载因子=现有元素/哈希表长度<br>  $$</p>
+</li>
+</ul>
+<h2 id="6-java基础"><a href="#6-java基础" class="headerlink" title="6.java基础"></a>6.java基础</h2><h3 id="JDK和JRE的区别？"><a href="#JDK和JRE的区别？" class="headerlink" title="JDK和JRE的区别？"></a>JDK和JRE的区别？</h3><h3 id="Java中集合有哪些类型？"><a href="#Java中集合有哪些类型？" class="headerlink" title="Java中集合有哪些类型？"></a>Java中集合有哪些类型？</h3><ul>
+<li><h4 id="list"><a href="#list" class="headerlink" title="list"></a>list</h4></li>
+<li><h4 id="set"><a href="#set" class="headerlink" title="set"></a>set</h4></li>
+<li><h4 id="map"><a href="#map" class="headerlink" title="map"></a>map</h4></li>
+</ul>
+<h3 id="list-set-map的区别"><a href="#list-set-map的区别" class="headerlink" title="list,set,map的区别"></a>list,set,map的区别</h3><p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhangqunshuai/article/details/80660974">https://blog.csdn.net/zhangqunshuai/article/details/80660974</a></p>
+<p>list和set的父类都是collection</p>
+<h3 id="基础类型有哪些？"><a href="#基础类型有哪些？" class="headerlink" title="基础类型有哪些？"></a>基础类型有哪些？</h3><h3 id="抽象类和接口的区别以及抽象类的具体使用、"><a href="#抽象类和接口的区别以及抽象类的具体使用、" class="headerlink" title="抽象类和接口的区别以及抽象类的具体使用、"></a>抽象类和接口的区别以及抽象类的具体使用、</h3><h3 id="修饰符有哪些？"><a href="#修饰符有哪些？" class="headerlink" title="修饰符有哪些？"></a>修饰符有哪些？</h3><h3 id="final的具体使用？final的效果？"><a href="#final的具体使用？final的效果？" class="headerlink" title="final的具体使用？final的效果？"></a>final的具体使用？final的效果？</h3><h3 id="没有构造函数的类如何创建对象？"><a href="#没有构造函数的类如何创建对象？" class="headerlink" title="没有构造函数的类如何创建对象？"></a>没有构造函数的类如何创建对象？</h3><p>在Java中，如果一个类没有写构造函数，通过方法创建时，系统会默认创建无参构造函数，，如果写了有参构造函数，则需要自己写无参构造函数，不然只能调用有参构造函数。</p>
+<h2 id="7-JVM"><a href="#7-JVM" class="headerlink" title="7.JVM"></a>7.JVM</h2><p>调优</p>
+<h2 id="8-Tomcat"><a href="#8-Tomcat" class="headerlink" title="8.Tomcat"></a>8.Tomcat</h2><h4 id="优化connector的方法"><a href="#优化connector的方法" class="headerlink" title="优化connector的方法"></a>优化connector的方法</h4><p>首先我们先来了解tomcat的connector的三种运行模式</p>
+<ul>
+<li>BIO（）：同步并阻塞一个线程处理一个请求，并发量高时，线程数较多，浪费资源。HTTP/1.1</li>
+<li>NIO（）：同步非阻塞IO，利用Java的异步IO处理，可以通过少量的线程处理大量的请求，可以利用一个线程处理多个connection（多路复用）</li>
+<li>APR（Apache Portable Runtime）：从操作系统层面解决IO阻塞问题，</li>
+</ul>
+<h5 id="tomcat7-x"><a href="#tomcat7-x" class="headerlink" title="tomcat7.x"></a>tomcat7.x</h5><h2 id="9-JS"><a href="#9-JS" class="headerlink" title="9.JS"></a>9.JS</h2><p>参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/25508730">https://zhuanlan.zhihu.com/p/25508730</a></p>
+<p>JavaScript是HTML和web的编程语言，js是具有函数优先的轻量级，解释型或即时编译型的的编程语言</p>
+<h4 id="js中undefined和not-defined的区别是什么？"><a href="#js中undefined和not-defined的区别是什么？" class="headerlink" title="js中undefined和not defined的区别是什么？"></a>js中undefined和not defined的区别是什么？</h4><ul>
+<li>undefined</li>
+</ul>
+<p>声明了变量，但没有赋值会输出undefined。</p>
+<p>例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> data;</span><br><span class="line"><span class="built_in">console</span>.log(data);</span><br></pre></td></tr></table></figure>
+
+<p>此时页面控制台会输出undefined。</p>
+<ul>
+<li>not defined</li>
+</ul>
+<p>未声明变量，就直接进行引用</p>
+<p>例:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(data);</span><br></pre></td></tr></table></figure>
+
+<p>此时页面控制台会输出not defined。</p>
+<h4 id="在js中创建一个private方法有什么缺点？"><a href="#在js中创建一个private方法有什么缺点？" class="headerlink" title="在js中创建一个private方法有什么缺点？"></a>在js中创建一个private方法有什么缺点？</h4><p>浪费内存，因为每个对象都会创建一个私有方法，不管用没用到。</p>
+<h4 id="delete方法"><a href="#delete方法" class="headerlink" title="delete方法"></a>delete方法</h4><p>将一个object对象的某一属性删除，不能删除对象本身，</p>
+<h4 id="赋值优先顺序"><a href="#赋值优先顺序" class="headerlink" title="赋值优先顺序"></a>赋值优先顺序</h4><p>从右到左，将最右边的值赋给左边的值</p>
+<h4 id="变量提升"><a href="#变量提升" class="headerlink" title="变量提升"></a>变量提升</h4><p>js引擎在编译js时会将<strong>声明操作</strong>（var data；）放在最前面编译，赋值则不动。</p>
+<h3 id="jQuery"><a href="#jQuery" class="headerlink" title="jQuery"></a>jQuery</h3><p>jquery是一款非常流行的JavaScript框架。</p>
+<h4 id="符号"><a href="#符号" class="headerlink" title="$符号"></a>$符号</h4><p>$符号为jQuery的简写,是jQuery的选择器，通过这个符号来选择页面中的元素<br>$$<br>$(document)=jQuery(document)<br>$$</p>
+<h4 id="body的onload函数与Jquery中的document-ready-的区别"><a href="#body的onload函数与Jquery中的document-ready-的区别" class="headerlink" title="body的onload函数与Jquery中的document.ready()的区别"></a>body的onload函数与Jquery中的document.ready()的区别</h4><p>1）、onload()函数只能使用一次，而document.ready可以使用多次</p>
+<p>2）、document.ready()在页面DOM元素加载完之后就会被调用，</p>
+<p>​        onload()函数需要在所有资源（图像，音频）都加载完毕之后才会被调用</p>
+<h4 id="jQuery中有几种选择器？"><a href="#jQuery中有几种选择器？" class="headerlink" title="jQuery中有几种选择器？"></a>jQuery中有几种选择器？</h4><p>大概可以归为9种</p>
+<p>常用的为</p>
+<p>1）基本选择器：根据id,类名，元素名</p>
+<p>2）层次选择器：根据路径来选择</p>
+<p>3）过滤选择器：又分基本过滤选择器，内容过滤选择器，可见性过滤器选择器，属性过滤器选择器</p>
+<h2 id="10-算法"><a href="#10-算法" class="headerlink" title="10.算法"></a>10.算法</h2><h3 id="排序算法（小-gt-大）"><a href="#排序算法（小-gt-大）" class="headerlink" title="排序算法（小-&gt;大）"></a>排序算法（小-&gt;大）</h3><h4 id="1）冒泡排序（O-N-2-）"><a href="#1）冒泡排序（O-N-2-）" class="headerlink" title="1）冒泡排序（O(N^2)）"></a>1）冒泡排序（O(N^2)）</h4><p>循环数组，对比相邻两个数据，前面的数据大于后面的数据则交换位置，否则不变。循环一遍之后，最小的数据会在最前面，数组长度-1，从第二个位置继续循环数组，重复上面过程。</p>
+<h4 id="2）选择排序（O-N-2-）"><a href="#2）选择排序（O-N-2-）" class="headerlink" title="2）选择排序（O(N^2)）"></a>2）选择排序（O(N^2)）</h4><p>选择排序是对冒泡排序的优化，在冒泡排序中，每次满足条件都要交换数据位置，在选择排序中，每次循环找到当前循环最小的数据，存储在临时变量中，循环完成之后与第一个数据交换，之后从第二个数据开始，重复这个操作。</p>
+<h4 id="3）插入排序（O-N-2-）"><a href="#3）插入排序（O-N-2-）" class="headerlink" title="3）插入排序（O(N^2)）"></a>3）插入排序（O(N^2)）</h4><p>将数据插入到一个有序数列中，当数据是无序的，我们需要将第一个数据当成有序数列，将后面的数据依次插入。</p>
+<h4 id="4）希尔排序（O-）"><a href="#4）希尔排序（O-）" class="headerlink" title="4）希尔排序（O()）"></a>4）希尔排序（O()）</h4><p>将数据按一定间隔分成多个数组，对每个数组进行插入排序。</p>
+<h4 id="5）归并排序"><a href="#5）归并排序" class="headerlink" title="5）归并排序"></a>5）归并排序</h4><h4 id="6）快排（O-n-logn-）"><a href="#6）快排（O-n-logn-）" class="headerlink" title="6）快排（O(n*logn)）"></a>6）快排（O(n*logn)）</h4><p>①先随机找一个基准数，一般以最后一位为基准数。</p>
+<p>②分区，将比基准数小的放到左边，比它大的放到右边。</p>
+<p>③重复第二步直到每个区间只有一个数。</p>
+<p>第二步详细步骤：<a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/quick-sort.html">https://www.runoob.com/w3cnote/quick-sort.html</a></p>
+<h4 id="关于排序中插入排序使用率远超过冒泡排序的原因"><a href="#关于排序中插入排序使用率远超过冒泡排序的原因" class="headerlink" title="关于排序中插入排序使用率远超过冒泡排序的原因"></a>关于排序中插入排序使用率远超过冒泡排序的原因</h4><p>参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/147678685">https://zhuanlan.zhihu.com/p/147678685</a></p>
+<p>两者时间复杂度都是O（n^2）</p>
+<p>这里引入一个概念：<strong>原地排序</strong></p>
+<p><strong>原地排序算法</strong>：指<strong>空间复杂度</strong>为O（1）的排序算法，空间复杂度为O（1）代表不需要额外的空间或需要少量的额外空间</p>
+<h5 id="如何评价一个算法？"><a href="#如何评价一个算法？" class="headerlink" title="如何评价一个算法？"></a>如何评价一个算法？</h5><ul>
+<li>最好情况，最坏情况，平均情况时间复杂度</li>
+<li>时间复杂度的系数，常数，低阶</li>
+<li>比较次数和交换（移动）次数</li>
+<li>内存消耗</li>
+<li>稳定性：指数组中存在值相等的数据，在排完序之后仍保持原来的顺序</li>
+</ul>
+<p>在两种排序有相同的时间复杂度的情况下，其余情况就是要考虑的，从以上几个方向分析这两种排序算法，首先，他们都是原地排序算法，冒泡排序只需要一个额外的空间，插入排序也只需要一个额外的空间，从稳定性方面来分析，冒泡排序因为每次对比都需要交换元素位置，所以稳定性不强，而插入排序只在合适的情况下才进行交换，所以稳定性很强。</p>
+<h3 id="Hash-Map"><a href="#Hash-Map" class="headerlink" title="Hash Map"></a>Hash Map</h3><h4 id="HashMap解决冲突的方法改变"><a href="#HashMap解决冲突的方法改变" class="headerlink" title="HashMap解决冲突的方法改变"></a>HashMap解决冲突的方法改变</h4><p>参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/127147909">https://zhuanlan.zhihu.com/p/127147909</a></p>
+<p>java1.7：数组+链表</p>
+<p>java1.8：数组+链表/红黑树</p>
+<p>在1.8版本中，hash表中单个链表长度超过8时才会进行树化，变成红黑树，</p>
+<h4 id="hashmap继承体系"><a href="#hashmap继承体系" class="headerlink" title="hashmap继承体系"></a>hashmap继承体系</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class HashMap&lt;K,V&gt; extends AbsractMap&lt;K,V&gt; implements Map&lt;K,V&gt;</span><br><span class="line"></span><br><span class="line">public abstract class AbstractMap&lt;K,V&gt; implementsMap&lt;K,V&gt;</span><br><span class="line"></span><br><span class="line">public interface Map&lt;K,V&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="hashmap和hashtable的区别："><a href="#hashmap和hashtable的区别：" class="headerlink" title="hashmap和hashtable的区别："></a><strong>hashmap和hashtable的区别</strong>：</h4><p>​    参考<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/79993393">https://zhuanlan.zhihu.com/p/79993393</a></p>
+<ol>
+<li><h5 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h5><p> hashtable是线程安全的，hashmap是非线程安全的。hashmap的性能高于hashtable,所以在<strong>多线程</strong>编程的情况下尽量使用hashtable</p>
+</li>
+<li><h5 id="是否可以用null作为key"><a href="#是否可以用null作为key" class="headerlink" title="是否可以用null作为key"></a><strong>是否可以用null作为key</strong></h5><p> Hash Map可以使用null作为key键，并且会存储在第一个位置，hashtable不允许使用null作为key。</p>
+</li>
+<li><h5 id="继承了什么，实现了什么"><a href="#继承了什么，实现了什么" class="headerlink" title="继承了什么，实现了什么"></a><strong>继承了什么，实现了什么</strong></h5><p> Hash Map继承了Abstract Map实现了Map，Hash Table继承了Dictionary抽象类实现了Map接口。</p>
+</li>
+<li><h5 id="默认容量以及如何扩容"><a href="#默认容量以及如何扩容" class="headerlink" title="默认容量以及如何扩容"></a><strong>默认容量以及如何扩容</strong></h5><p> HashMap默认容量为16，阈值为0.75，即数组达到12个元素时，就会开始扩容成当前容量的2倍。</p>
+<p> HashTable默认容量为11，阈值为0.75，扩容时容量翻倍+1，11*2+1.</p>
+</li>
+<li><h5 id="底层实现"><a href="#底层实现" class="headerlink" title="底层实现"></a><strong>底层实现</strong></h5><p> 底层都是数组+链表</p>
+</li>
+<li><h5 id="计算hash的方法不同"><a href="#计算hash的方法不同" class="headerlink" title="计算hash的方法不同"></a><strong>计算hash的方法不同</strong></h5><p> Hash Table：使用key的hashcode对table的长度取模</p>
+<p> Hash Map:对key的hashcode进行二次hashcode在进行取模运算，以获得更好的散列值，使数据更分散</p>
+</li>
+</ol>
+<h4 id="解决hash冲突的方法？"><a href="#解决hash冲突的方法？" class="headerlink" title="解决hash冲突的方法？"></a>解决hash冲突的方法？</h4><ul>
+<li><strong>链地址法</strong>：</li>
+<li><strong>开放地址法</strong>：</li>
+</ul>
+<h2 id="11-JDBC"><a href="#11-JDBC" class="headerlink" title="11.JDBC"></a>11.JDBC</h2><h3 id="三个对象，关闭顺序？在那里关闭？"><a href="#三个对象，关闭顺序？在那里关闭？" class="headerlink" title="三个对象，关闭顺序？在那里关闭？"></a>三个对象，关闭顺序？在那里关闭？</h3><h2 id="12-GC-garbage-collection"><a href="#12-GC-garbage-collection" class="headerlink" title="12.GC(garbage collection)"></a>12.GC(garbage collection)</h2><p>参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/142062403">https://zhuanlan.zhihu.com/p/142062403</a></p>
+<h2 id="13-多线程"><a href="#13-多线程" class="headerlink" title="13.多线程"></a>13.多线程</h2>
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2021/07/01/Interview/">
+    <time datetime="2021-07-01T14:52:14.852Z" class="entry-date">
+        2021-07-01
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2021/07/01/java/" rel="prev"><span class="meta-nav">←</span> Java</a></span>
+    
+    
+        <span class="nav-next"><a href="/2021/07/01/Android%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C/" rel="next">Android <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+<section id="comments">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="post-Interview" data-title="Interview" data-url="https://masuo777.github.io/2021/07/01/Interview/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:'ms'};
+    (function() {
+	  var ds = document.createElement('script');
+	  ds.type = 'text/javascript';ds.async = true;
+	  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	  ds.charset = 'UTF-8';
+	  (document.getElementsByTagName('head')[0]
+	   || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+  <!-- 多说公共JS代码 end -->
+</section>
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside class="widget">
+    <h3 class="widget-title">CONTACT ME</h3>
+    <div class="widget-content">
+      <p>邮箱：masuo0.0@foxmail.com</p>
+      <p>QQ：2919029885</p>
+      <a target="_blank" rel="noopener" href="https://www.cnblogs.com/msdog/">博客园</a>
+      
+      <img src="https://masuo-github-image.oss-cn-beijing.aliyuncs.com/image/20210701223301.jpg" height="250px"/>
+      
+    </div>
+</aside>
+  
+    <aside class="widget">
+    <h3 class="widget-title">赞助我</h3>
+    <div class="widget-content">
+      <img src='/css/images/alipay.png' style='width:100%;' />
+    </div>
+</aside>
+  
+    <aside class="widget">
+    <h3 class="widget-title">公众号</h3>
+    <div class="widget-content">
+      <p>暂时没有，待我代码行数100000，我可能才有这个资格吧。</p>
+      <p></p>
+    </div>
+</aside>
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2021 John Doe; All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>
